@@ -17,7 +17,7 @@ const App: FC = () => {
   const [posts, setPosts] = useState<Hoge[]>([]);
 
   const onSubmit = async (message: string, point: number, toWhom: string) => {
-    console.log(toWhom, "onSubmit:", message, " ", point);
+    console.log("onSubmit:", toWhom, message, " ", point);
     await axios.post("https://hackathon-zyaveuwmya-uc.a.run.app/user", {
       toWhom: toWhom,
       message: message,

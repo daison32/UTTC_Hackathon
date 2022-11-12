@@ -12,7 +12,7 @@ import {
   Route,
   Link,
   useLocation,
-  RouteComponentProps
+  RouteComponentProps,
 } from "react-router-dom";
 
 const url = "https://hackathon-zyaveuwmya-uc.a.run.app";
@@ -28,9 +28,9 @@ type Hoge = {
 
 const Newmessage: FC = () => {
   const [posts, setPosts] = useState<Hoge[]>([]);
-  const location = useLocation(); 
-  const userId = location.search.substr(8)
-  console.log(location.search.substr(8))
+  const location = useLocation();
+  const userId = location.search.substr(8);
+  console.log(location.search.substr(8));
 
   const onSubmit = async (towhom: string, message: string, point: number) => {
     console.log("onSubmit:", towhom, message, " ", point);
@@ -48,6 +48,24 @@ const Newmessage: FC = () => {
       });
   };
 
+  // userId を 名前(string)に
+  const userIdToName = (userId: string) => {
+    switch (userId) {
+      case "0001":
+        return "ドラえもん";
+      case "0002":
+        return "のび太";
+      case "0003":
+        return "しずか";
+      case "0004":
+        return "ジャイアン";
+      case "0005":
+        return "スネ夫";
+      case "9999":
+        return "出来杉";
+    }
+  };
+
   useEffect(() => {
     fetch(url + "/transactions", {})
       .then((response) => response.json())
@@ -60,11 +78,10 @@ const Newmessage: FC = () => {
       });
   }, []);
 
-  const filteredData = posts.filter(d => {
-    return d.fromwhom == userId || d.towhom == userId
-  })
-  console.log(filteredData)
-
+  const filteredData = posts.filter((d) => {
+    return d.fromwhom == userId || d.towhom == userId;
+  });
+  console.log(filteredData);
 
   // const arr = ["りんご", "みかん", "ぶどう"];
   return (
@@ -81,9 +98,8 @@ const Newmessage: FC = () => {
         <Form onSubmit={onSubmit} />
         <ul>
           {filteredData.map((transaction, i) => (
-            
             <li className="list" key={i}>
-              from{transaction.fromwhom} to {transaction.towhom} "
+              from{userIdToName(transaction.fromwhom)} to {userIdToName(transaction.towhom)} "
               {transaction.message}" [{transaction.point}]
             </li>
           ))}

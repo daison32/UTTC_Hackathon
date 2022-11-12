@@ -1,8 +1,7 @@
 import logo from "./logo.svg";
-// import "./App.css";
+import "./Add.css";
 import Form from "./Form";
 import Home from "./Home";
-import Add from "./Add";
 import axios, { AxiosResponse } from "axios";
 import { useState } from "react";
 import { useEffect, FC } from "react";
@@ -19,7 +18,7 @@ type Hoge = {
   point: number;
 };
 
-const App: FC = () => {
+const Add: FC = () => {
   const [posts, setPosts] = useState<Hoge[]>([]);
 
   const onSubmit = async (towhom: string, message: string, point: number) => {
@@ -52,25 +51,21 @@ const App: FC = () => {
 
   // const arr = ["りんご", "みかん", "ぶどう"];
   return (
-    <Router>
-      <div>
-        <Switch>
-          <Route path="/add">
-            <Add />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </div>
-    </Router>
+    <div className="App">
+      <header className="App-header">
+        <div className="title">Express your gratitude </div>
+        <Form onSubmit={onSubmit} />
+        <ul>
+          {posts.map((transaction, i) => (
+            <li className="list" key={i}>
+              from{transaction.fromwhom} to {transaction.towhom} "
+              {transaction.message}" [{transaction.point}]
+            </li>
+          ))}
+        </ul>
+      </header>
+    </div>
   );
 };
 
-export default App;
-
-// 「何故submit.preventDefault()という処理を入れる必要があるのか」
-// 　　　->submitに対するブラウザのデフォルトの反応が効いてしまい、submit毎に入力欄が空になってしまうため
-
-// 「inputに対してvalueで値を指定するとどういうメリットがあるのか」
-// 　 ->入力された値を取り出して、useStateに投げることができる
+export default Add;

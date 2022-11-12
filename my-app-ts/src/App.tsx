@@ -8,7 +8,7 @@ import React from "react";
 
 type Hoge = {
   id: string;
-  toWhom: string;
+  towhom: string;
   message: string;
   point: number;
 };
@@ -16,10 +16,10 @@ type Hoge = {
 const App: FC = () => {
   const [posts, setPosts] = useState<Hoge[]>([]);
 
-  const onSubmit = async (toWhom: string, message: string, point: number) => {
-    console.log("onSubmit:", toWhom, message, " ", point);
+  const onSubmit = async (towhom: string, message: string, point: number) => {
+    console.log("onSubmit:", towhom, message, " ", point);
     await axios.post("https://hackathon-zyaveuwmya-uc.a.run.app/user", {
-      toWhom: toWhom,
+      towhom: towhom,
       message: message,
       point: point,
     });

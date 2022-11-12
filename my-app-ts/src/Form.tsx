@@ -9,20 +9,20 @@ const url = "http://localhost:8000";
 type USER = typeof user; //画面に表示するユーザー情報の型
 type hoge = {
   id: string;
-  toWhom: string;
+  towhom: string;
   message: string;
   point: number;
 };
 
 type Props = {
-  onSubmit: (toWhom: string, message: string, point: number) => Promise<void>;
+  onSubmit: (towhom: string, message: string, point: number) => Promise<void>;
   // setPosts: (data: React.SetStateAction<hoge[]>) => void;
 };
 
 const Form = (props: Props) => {
   const [message, setMessage] = useState("");
   const [point, setPoint] = useState<number | undefined>(undefined);
-  const [toWhom, setToWhom] = useState("")
+  const [towhom, setToWhom] = useState("")
   const [seleceItem, setSelectItem] = useState("アイテム1");
 
   const submit = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -30,7 +30,7 @@ const Form = (props: Props) => {
     if (typeof point === "undefined") {
       return 
     }
-    await props.onSubmit(toWhom, message, point);
+    await props.onSubmit(towhom, message, point);
   };
 
   // メニューデータ

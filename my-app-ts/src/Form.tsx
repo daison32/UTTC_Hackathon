@@ -19,6 +19,8 @@ type Props = {
   // setPosts: (data: React.SetStateAction<hoge[]>) => void;
 };
 
+
+
 const Form = (props: Props) => {
   const [message, setMessage] = useState("");
   const [point, setPoint] = useState<number | undefined>(undefined);

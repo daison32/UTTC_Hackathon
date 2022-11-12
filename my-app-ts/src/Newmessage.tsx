@@ -34,13 +34,13 @@ const Newmessage: FC = () => {
 
   const onSubmit = async (towhom: string, message: string, point: number) => {
     console.log("onSubmit:", towhom, message, " ", point);
-    await axios.post("https://hackathon-zyaveuwmya-uc.a.run.app/transaction", {
+    await axios.post(url + "/transaction", {
       fromwhom: userId,
       towhom: towhom,
       message: message,
       point: point,
     });
-    fetch("https://hackathon-zyaveuwmya-uc.a.run.app/transactions")
+    fetch(url + "/transactions")
       .then((response) => response.json())
       .then((data) => {
         console.log("hoge", data);
@@ -49,7 +49,7 @@ const Newmessage: FC = () => {
   };
 
   useEffect(() => {
-    fetch("https://hackathon-zyaveuwmya-uc.a.run.app/transactions", {})
+    fetch(url + "/transactions", {})
       .then((response) => response.json())
       .then((data) => {
         console.log("hoge", data);
@@ -59,6 +59,12 @@ const Newmessage: FC = () => {
         console.error(e);
       });
   }, []);
+
+  const filteredData = posts.filter(d => {
+    return d.fromwhom == userId || d.towhom == userId
+  })
+  console.log(filteredData)
+
 
   // const arr = ["りんご", "みかん", "ぶどう"];
   return (
@@ -74,7 +80,8 @@ const Newmessage: FC = () => {
         <div className="title">Express your gratitude </div>
         <Form onSubmit={onSubmit} />
         <ul>
-          {posts.map((transaction, i) => (
+          {filteredData.map((transaction, i) => (
+            
             <li className="list" key={i}>
               from{transaction.fromwhom} to {transaction.towhom} "
               {transaction.message}" [{transaction.point}]

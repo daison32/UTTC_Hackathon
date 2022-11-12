@@ -8,6 +8,7 @@ import React from "react";
 
 type Hoge = {
   id: string;
+  fromwhom: string;
   towhom: string;
   message: string;
   point: number;
@@ -18,13 +19,13 @@ const App: FC = () => {
 
   const onSubmit = async (towhom: string, message: string, point: number) => {
     console.log("onSubmit:", towhom, message, " ", point);
-    await axios.post("https://hackathon-zyaveuwmya-uc.a.run.app/user", {
+    await axios.post("https://hackathon-zyaveuwmya-uc.a.run.app/transaction", {
       fromwhom: "できすぎ",
       towhom: towhom,
       message: message,
       point: point,
     });
-    fetch("https://hackathon-zyaveuwmya-uc.a.run.app/user")
+    fetch("https://hackathon-zyaveuwmya-uc.a.run.app/transaction")
       .then((response) => response.json())
       .then((data) => {
         console.log("hoge", data);
@@ -33,7 +34,7 @@ const App: FC = () => {
   };
 
   useEffect(() => {
-    fetch("https://hackathon-zyaveuwmya-uc.a.run.app/user?name=taro", {})
+    fetch("https://hackathon-zyaveuwmya-uc.a.run.app/transactions", {})
       .then((response) => response.json())
       .then((data) => {
         console.log("hoge", data);
@@ -44,25 +45,19 @@ const App: FC = () => {
       });
   }, []);
 
-  // useEffect(() => {
-  //   axios.get<json>("http://localhost:8000/users").then((response) => {
-  //       const arr = response.data
-  //     });
-  // }, []);
-
   // const arr = ["りんご", "みかん", "ぶどう"];
   return (
     <div className="App">
       <header className="App-header">
         <div className="title">Express your gratitude </div>
         <Form onSubmit={onSubmit} />
-        {/* <ul>
-          {posts.map((user, i) => (
+        <ul>
+          {posts.map((transaction, i) => (
             <li className="list" key={i}>
-              {user.name}, {user.age}
+              from{transaction.fromwhom} to {transaction.towhom} "{transaction.message}" [{transaction.point}]
             </li>
           ))}
-        </ul> */}
+        </ul>
       </header>
     </div>
   );

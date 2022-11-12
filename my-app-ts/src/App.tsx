@@ -1,10 +1,14 @@
 import logo from "./logo.svg";
 import "./App.css";
 import Form from "./Form";
+import Home from "./Home";
 import axios, { AxiosResponse } from "axios";
 import { useState } from "react";
 import { useEffect, FC } from "react";
 import React from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
+const url = "https://hackathon-zyaveuwmya-uc.a.run.app";
 
 type Hoge = {
   id: string;
@@ -20,12 +24,12 @@ const App: FC = () => {
   const onSubmit = async (towhom: string, message: string, point: number) => {
     console.log("onSubmit:", towhom, message, " ", point);
     await axios.post("https://hackathon-zyaveuwmya-uc.a.run.app/transaction", {
-      fromwhom: "できすぎ",
+      fromwhom: "9999",
       towhom: towhom,
       message: message,
       point: point,
     });
-    fetch("https://hackathon-zyaveuwmya-uc.a.run.app/transaction")
+    fetch("https://hackathon-zyaveuwmya-uc.a.run.app/transactions")
       .then((response) => response.json())
       .then((data) => {
         console.log("hoge", data);
@@ -47,19 +51,29 @@ const App: FC = () => {
 
   // const arr = ["りんご", "みかん", "ぶどう"];
   return (
-    <div className="App">
-      <header className="App-header">
-        <div className="title">Express your gratitude </div>
-        <Form onSubmit={onSubmit} />
-        <ul>
-          {posts.map((transaction, i) => (
-            <li className="list" key={i}>
-              from{transaction.fromwhom} to {transaction.towhom} "{transaction.message}" [{transaction.point}]
-            </li>
-          ))}
-        </ul>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <Switch>
+          <Route path="/">
+            <Home />
+            <div className="App">
+              <header className="App-header">
+                <div className="title">Express your gratitude </div>
+                <Form onSubmit={onSubmit} />
+                <ul>
+                  {posts.map((transaction, i) => (
+                    <li className="list" key={i}>
+                      from{transaction.fromwhom} to {transaction.towhom} "
+                      {transaction.message}" [{transaction.point}]
+                    </li>
+                  ))}
+                </ul>
+              </header>
+            </div>
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 };
 

@@ -4,7 +4,7 @@ import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 import user from "./user.json"; //レスポンスのJSON(詳しくは補足で)
 import React from "react";
 
-const url = "http://localhost:8000";
+
 
 type USER = typeof user; //画面に表示するユーザー情報の型
 type hoge = {
@@ -22,13 +22,13 @@ type Props = {
 const Form = (props: Props) => {
   const [message, setMessage] = useState("");
   const [point, setPoint] = useState<number | undefined>(undefined);
-  const [towhom, setToWhom] = useState("")
+  const [towhom, setToWhom] = useState("");
   const [seleceItem, setSelectItem] = useState("アイテム1");
 
   const submit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (typeof point === "undefined") {
-      return 
+      return;
     }
     await props.onSubmit(towhom, message, point);
   };
@@ -38,9 +38,26 @@ const Form = (props: Props) => {
 
   // to whomがチェンジされた時
   const handleChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
-    setSelectItem(e.target.value)
-    console.log(e.target.value)
-    setToWhom(e.target.value)
+    setSelectItem(e.target.value);
+    console.log(e.target.value);
+    switch (e.target.value) {
+      case "ドラえもん":
+        setToWhom("0001");
+        return;
+      case "のび太":
+        setToWhom("0002");
+        return;
+      case "しずか":
+        setToWhom("0003");
+        return;
+      case "ジャイアン":
+        setToWhom("0004");
+        return;
+      case "スネ夫":
+        setToWhom("0005");
+        return;
+    }
+
   };
 
   return (
@@ -48,7 +65,7 @@ const Form = (props: Props) => {
       <div className="row">
         <div className="container">
           <section>
-          <label className="label">To: </label>
+            <label className="label">To: </label>
             <select value={seleceItem} onChange={handleChange}>
               {items.map((item) => (
                 <option key={item} value={item}>

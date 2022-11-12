@@ -22,7 +22,7 @@ type Props = {
 const Form = (props: Props) => {
   const [message, setMessage] = useState("");
   const [point, setPoint] = useState<number | undefined>(undefined);
-  const [towhom, setToWhom] = useState("");
+  const [towhom, setToWhom] = useState("0001");
   const [seleceItem, setSelectItem] = useState("アイテム1");
 
   const submit = async (e: React.MouseEvent<HTMLButtonElement>) => {

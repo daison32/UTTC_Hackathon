@@ -51,16 +51,6 @@ const App: FC = () => {
   return (
     <Router>
       <div>
-      <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/new">New Message</Link>
-            </li>
-          </ul>
-        </nav>
         <Switch>
           <Route path="/new">
             <Add />

@@ -1,8 +1,5 @@
-import logo from "./logo.svg";
-// import "./App.css";
-import Form from "./Form";
 import Home from "./Home";
-import Add from "./Add";
+import Add from "./Newmessage";
 import axios, { AxiosResponse } from "axios";
 import { useState } from "react";
 import { useEffect, FC } from "react";
@@ -54,8 +51,18 @@ const App: FC = () => {
   return (
     <Router>
       <div>
+      <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/new">New Message</Link>
+            </li>
+          </ul>
+        </nav>
         <Switch>
-          <Route path="/add">
+          <Route path="/new">
             <Add />
           </Route>
           <Route path="/">

@@ -18,7 +18,7 @@ type Hoge = {
   point: number;
 };
 
-const Add: FC = () => {
+const Newmessage: FC = () => {
   const [posts, setPosts] = useState<Hoge[]>([]);
 
   const onSubmit = async (towhom: string, message: string, point: number) => {
@@ -68,4 +68,4 @@ const Add: FC = () => {
   );
 };
 
-export default Add;
+export default Newmessage;

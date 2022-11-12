@@ -19,6 +19,7 @@ const App: FC = () => {
   const onSubmit = async (towhom: string, message: string, point: number) => {
     console.log("onSubmit:", towhom, message, " ", point);
     await axios.post("https://hackathon-zyaveuwmya-uc.a.run.app/user", {
+      fromwhom: "できすぎ",
       towhom: towhom,
       message: message,
       point: point,

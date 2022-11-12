@@ -15,22 +15,22 @@ type hoge = {
 };
 
 type Props = {
-  onSubmit: (message: string, point: number, toWhom: string) => Promise<void>;
+  onSubmit: (toWhom: string, message: string, point: number) => Promise<void>;
   // setPosts: (data: React.SetStateAction<hoge[]>) => void;
 };
 
 const Form = (props: Props) => {
   const [message, setMessage] = useState("");
-  const [age, setAge] = useState<number | undefined>(undefined);
+  const [point, setPoint] = useState<number | undefined>(undefined);
   const [toWhom, setToWhom] = useState("")
   const [seleceItem, setSelectItem] = useState("アイテム1");
 
   const submit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (typeof age === "undefined") {
+    if (typeof point === "undefined") {
       return 
     }
-    await props.onSubmit(message, age, toWhom);
+    await props.onSubmit(toWhom, message, point);
   };
 
   // メニューデータ
@@ -77,8 +77,8 @@ const Form = (props: Props) => {
           type={"number"}
           id="age"
           name="age"
-          value={age}
-          onChange={(e) => setAge(Number(e.target.value))}
+          value={point}
+          onChange={(e) => setPoint(Number(e.target.value))}
         ></input>
       </div>
       <button className="button" onClick={submit}>

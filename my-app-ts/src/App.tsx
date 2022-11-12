@@ -16,7 +16,7 @@ type Hoge = {
 const App: FC = () => {
   const [posts, setPosts] = useState<Hoge[]>([]);
 
-  const onSubmit = async (message: string, point: number, toWhom: string) => {
+  const onSubmit = async (toWhom: string, message: string, point: number) => {
     console.log("onSubmit:", toWhom, message, " ", point);
     await axios.post("https://hackathon-zyaveuwmya-uc.a.run.app/user", {
       toWhom: toWhom,

@@ -93,7 +93,13 @@ const Newmessage: FC = () => {
   const [selectedMessage, setSelectedMessage] = useState("");
   const [selectedPoint, setSelectedPoint] = useState(0);
 
-  const openEditModal = (id: string, fromwhom: string, towhom: string, message: string, point: number) => {
+  const openEditModal = (
+    id: string,
+    fromwhom: string,
+    towhom: string,
+    message: string,
+    point: number
+  ) => {
     setSelectedId(id);
     setSelectedFromwhom(fromwhom);
     setSelectedTowhom(towhom);
@@ -104,18 +110,13 @@ const Newmessage: FC = () => {
 
   // モーダルの更新押した時の反応
   async function updateLunchList(id: string, message: string, point: number) {
-    console.log(
-      [selectedId,
-        message,
-        point]
-      
-    )
+    console.log([selectedId, message, point]);
     await axios.post(url + "/edit", {
       id: selectedId,
       message: message,
       point: point,
     });
-    
+
     closeModal();
   }
 
@@ -197,8 +198,20 @@ const Newmessage: FC = () => {
 
   // const arr = ["りんご", "みかん", "ぶどう"];
   return (
-    <Container maxWidth="sm">
-      <TableContainer component={Paper} sx={{ maxHeight: 880 }}>
+    <Container maxWidth="sm" className="App">
+      <nav className="HeaderLink">
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+        </ul>
+      </nav>
+      <header className="App-header">
+         <div className="User-Name">Hello {userIdToName(userId)}</div>
+         <Point />
+         {/* <div className="title">Express your gratitude </div> */}
+         <Form onSubmit={onSubmit} />
+               <TableContainer component={Paper} sx={{ maxHeight: 880 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
@@ -233,7 +246,13 @@ const Newmessage: FC = () => {
                   <IconButton
                     aria-label="edit"
                     onClick={() => {
-                      openEditModal(row.id, row.fromwhom, row.towhom, row.message, row.point);
+                      openEditModal(
+                        row.id,
+                        row.fromwhom,
+                        row.towhom,
+                        row.message,
+                        row.point
+                      );
                     }}
                   >
                     <AiFillEdit />
@@ -252,35 +271,42 @@ const Newmessage: FC = () => {
         style={customStyles}
       >
         <div className="row">
-        <label className="label">Message: </label>
-        <input
-          className="inputBox"
-          type={"text"}
-          id="message"
-          name="message"
-          value={selectedMessage}
-          onChange={(e) => setSelectedMessage(e.target.value)}
-        ></input>
-      </div>
-      <div className="row">
-        <label className="label">Point: </label>
-        <input
-          className="inputBox"
-          type={"number"}
-          id="age"
-          name="age"
-          value={selectedPoint}
-          onChange={(e) => setSelectedPoint(Number(e.target.value))}
-        ></input>
-      </div>
+          <label className="label">Message: </label>
+          <input
+            className="inputBox"
+            type={"text"}
+            id="message"
+            name="message"
+            value={selectedMessage}
+            onChange={(e) => setSelectedMessage(e.target.value)}
+          ></input>
+        </div>
+        <div className="row">
+          <label className="label">Point: </label>
+          <input
+            className="inputBox"
+            type={"number"}
+            id="age"
+            name="age"
+            value={selectedPoint}
+            onChange={(e) => setSelectedPoint(Number(e.target.value))}
+          ></input>
+        </div>
         <Box mb={2}>
           <FormControl sx={{ mr: 2, mt: 2 }}>
-            <button className="button" onClick={() => updateLunchList(selectedId, selectedMessage, selectedPoint)}>
+            <button
+              className="button"
+              onClick={() =>
+                updateLunchList(selectedId, selectedMessage, selectedPoint)
+              }
+            >
               更新
             </button>
           </FormControl>
         </Box>
       </Modal>
+      </header>
+
     </Container>
 
     // <div className="App">

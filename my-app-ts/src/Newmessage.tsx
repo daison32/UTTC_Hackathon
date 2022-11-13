@@ -52,6 +52,11 @@ const Newmessage: FC = () => {
   const handleOnRemove = async (id: string) => {
     await axios.delete(url + "/transactions", {
       data: {id: id}
+    });
+    fetch(url + "/transactions")
+    .then((response) => response.json())
+    .then((data) => {
+      setPosts(data)
     })
   }
 

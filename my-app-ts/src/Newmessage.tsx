@@ -1,7 +1,7 @@
 import logo from "./logo.svg";
 import "./Newmessage.css";
 import Form from "./Form";
-import Point from "./Point"
+import Point from "./Point";
 import Home from "./Home";
 import axios, { AxiosResponse } from "axios";
 import { useState } from "react";
@@ -49,6 +49,12 @@ const Newmessage: FC = () => {
       });
   };
 
+  const handleOnRemove = async (id: string) => {
+    await axios.delete(url + "/transactions", {
+      data: {id: id}
+    })
+  }
+
   // userId を 名前(string)に
   const userIdToName = (userId: string) => {
     switch (userId) {
@@ -92,7 +98,6 @@ const Newmessage: FC = () => {
           <li>
             <Link to="/">Home</Link>
           </li>
-          
         </ul>
       </nav>
       <header className="App-header">
@@ -102,8 +107,10 @@ const Newmessage: FC = () => {
         <ul>
           {filteredData.map((transaction, i) => (
             <li className="list" key={i}>
-              from{userIdToName(transaction.fromwhom)} to {userIdToName(transaction.towhom)} "
-              {transaction.message}" [{transaction.point}]
+              from{userIdToName(transaction.fromwhom)} to{" "}
+              {userIdToName(transaction.towhom)} "{transaction.message}" [
+              {transaction.point}]
+              <button onClick={() => handleOnRemove(transaction.id)}>削除</button>
             </li>
           ))}
         </ul>

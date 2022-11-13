@@ -53,10 +53,6 @@ const App: FC = () => {
     <Router>
       <div>
         <Switch>
-          <Route path="/point">
-            <Point />
-          </Route>
-
           <Route path="/new">
             <Newmessage />
           </Route>

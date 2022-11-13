@@ -1,5 +1,6 @@
 import Home from "./Home";
-import Add from "./Newmessage";
+import Point from "./Point";
+import Newmessage from "./Newmessage";
 import axios, { AxiosResponse } from "axios";
 import { useState } from "react";
 import { useEffect, FC } from "react";
@@ -52,8 +53,12 @@ const App: FC = () => {
     <Router>
       <div>
         <Switch>
+          <Route path="/point">
+            <Point />
+          </Route>
+
           <Route path="/new">
-            <Add />
+            <Newmessage />
           </Route>
           <Route path="/">
             <Home />

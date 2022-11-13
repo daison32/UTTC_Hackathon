@@ -1,6 +1,7 @@
 import logo from "./logo.svg";
 import "./Newmessage.css";
 import Form from "./Form";
+import Point from "./Point"
 import Home from "./Home";
 import axios, { AxiosResponse } from "axios";
 import { useState } from "react";
@@ -91,10 +92,12 @@ const Newmessage: FC = () => {
           <li>
             <Link to="/">Home</Link>
           </li>
+          
         </ul>
       </nav>
       <header className="App-header">
-        <div className="title">Express your gratitude </div>
+        <Point />
+        {/* <div className="title">Express your gratitude </div> */}
         <Form onSubmit={onSubmit} />
         <ul>
           {filteredData.map((transaction, i) => (

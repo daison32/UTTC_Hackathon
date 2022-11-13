@@ -40,3 +40,9 @@
 .HeaderLink {
   text-align: left;
 }
+
+.User-Name {
+  position: relative;
+  right: 10px;
+  top: 10px;
+}

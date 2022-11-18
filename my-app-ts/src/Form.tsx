@@ -1,22 +1,10 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
-import user from "./user.json"; //レスポンスのJSON(詳しくは補足で)
 import React from "react";
 
-
-
-type USER = typeof user; //画面に表示するユーザー情報の型
-type hoge = {
-  id: string;
-  towhom: string;
-  message: string;
-  point: number;
-};
-
 type Props = {
-  onSubmit: (towhom: string, message: string, point: number) => Promise<void>;
-  // setPosts: (data: React.SetStateAction<hoge[]>) => void;
+  onSubmittt: (towhom: string, message: string, point: number) => Promise<void>;
 };
 
 const Form = (props: Props) => {
@@ -30,7 +18,7 @@ const Form = (props: Props) => {
     if (typeof point === "undefined") {
       return;
     }
-    await props.onSubmit(towhom, message, point);
+    await props.onSubmittt(towhom, message, point);
   };
 
   // メニューデータ
@@ -57,7 +45,6 @@ const Form = (props: Props) => {
         setToWhom("0005");
         return;
     }
-
   };
 
   return (

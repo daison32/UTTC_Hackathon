@@ -6,24 +6,8 @@ import axios, { AxiosResponse } from "axios";
 import { useState } from "react";
 import { useEffect, FC } from "react";
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  useLocation,
-  RouteComponentProps,
-  Switch
-} from "react-router-dom";
-import {
-  Button,
-  Chip,
-  Container,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  Box,
-} from "@mui/material";
+import { Link, useLocation } from "react-router-dom";
+import { Container } from "@mui/material";
 
 const url = "https://hackathon-zyaveuwmya-uc.a.run.app";
 
@@ -35,12 +19,42 @@ type Hoge = {
   point: number;
 };
 
+type Score = {
+  name: string;
+  point: number;
+};
+
 // ここからNewmessage本体
 const Newmessage: FC = () => {
   const [posts, setPosts] = useState<Hoge[]>([]);
+  const [points, setPoints] = useState<Score[]>([]);
+
+  // ユーザーをパラメータで判定
   const location = useLocation();
   const userId = location.search.substr(8);
 
+  // 再レンダリングの関数
+  const reRendering = () => {
+    fetch(url + "/transactions")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("hoge", data);
+        setPosts(data);
+      });
+    fetch(url + "/points")
+      .then((response) => response.json())
+      .then((data) => {
+        setPoints(data);
+        console.log("active");
+      });
+  };
+
+  // 一覧を取得(READ)
+  useEffect(() => {
+    reRendering();
+  }, []);
+
+  // 追加(CREATE)
   const onSubmit = async (towhom: string, message: string, point: number) => {
     if (towhom == userId) {
       return window.alert("自分に貢献は送れません！");
@@ -51,26 +65,25 @@ const Newmessage: FC = () => {
       message: message,
       point: point,
     });
-    fetch(url + "/transactions")
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("hoge", data);
-        setPosts(data);
-      });
+    reRendering();
   };
 
+  // 編集（UPDATE）
   const onUpdate = async (selectedId: string, message: string, point: number) => {
-    await axios.post(url + "/edit", {
+    await axios.put(url + "/transactions", {
       id: selectedId,
       message: message,
       point: point,
     });
-    fetch(url + "/transactions")
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("hoge", data);
-        setPosts(data);
-      });
+    reRendering();
+  };
+
+  // 削除(DELETE)
+  const onDelete = async (id: string) => {
+    await axios.delete(url + "/transactions", {
+      data: { id: id },
+    });
+    reRendering();
   }
 
   // userId を 名前(string)に
@@ -91,22 +104,8 @@ const Newmessage: FC = () => {
     }
   };
 
-  useEffect(() => {
-    fetch(url + "/transactions", {})
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("hoge", data);
-        setPosts(data);
-      })
-      .catch((e) => {
-        console.error(e);
-      });
-  }, []);
-
-
   return (
     <Container maxWidth="sm" className="App">
-
       <nav className="HeaderLink">
         <Link to="/">Home</Link>
       </nav>
@@ -114,11 +113,17 @@ const Newmessage: FC = () => {
       <header className="App-header">
         <div className="User-Name">Hello {userIdToName(userId)}</div>
 
-        <Point />
+        <Point points={points} />
         <Form onSubmittt={onSubmit} />
-        <List posts={posts} setPosts={setPosts} updateMessage={onUpdate} userId={userId} userIdToName={userIdToName}/>
+        <List
+          posts={posts}
+          setPosts={setPosts}
+          updateMessage={onUpdate}
+          onDelete={onDelete}
+          userId={userId}
+          userIdToName={userIdToName}
+        />
       </header>
-
     </Container>
   );
 };

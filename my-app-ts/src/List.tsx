@@ -31,6 +31,7 @@ type Props = {
   userId: string;
   userIdToName: (userId: string) => "ドラえもん" | "のび太" | "しずか" | "ジャイアン" | "スネ夫" | "出来杉" | undefined;
   updateMessage: (selectedId: string, message: string, point: number) => Promise<void>;
+  onDelete: (id: string) => Promise<void>;
 };
 
 type Hoge = {
@@ -80,14 +81,7 @@ const List = (props: Props) => {
   }, []);
 
   const handleOnRemove = async (id: string) => {
-    await axios.delete(url + "/transactions", {
-      data: { id: id },
-    });
-    fetch(url + "/transactions")
-      .then((response) => response.json())
-      .then((data) => {
-        props.setPosts(data);
-      });
+    props.onDelete(id)
   };
 
   const openEditModal = (
@@ -115,7 +109,6 @@ const List = (props: Props) => {
   };
 
   async function updateMessage(message: string, point: number) {
-    console.log([selectedId, message, point]);
     props.updateMessage(selectedId, message, point)
 
     closeModal();

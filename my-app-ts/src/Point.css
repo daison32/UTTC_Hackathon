@@ -1,0 +1,17 @@
+ul {
+    float:left;
+    position:relative;
+    left:50%;
+ }
+ 
+ li {
+   position:relative;
+   left:-50%;
+   list-style-type: none;
+   border: #999 solid 1px;
+   margin: 0 0 10px 0;
+   padding: 10px 30px;
+ }
+.Point {
+    text-align: center;
+}

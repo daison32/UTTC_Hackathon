@@ -1,4 +1,5 @@
 import React from "react";
+import "./List.css";
 import { useState } from "react";
 import { useEffect, FC } from "react";
 import axios, { AxiosResponse } from "axios";
@@ -115,8 +116,8 @@ const List = (props: Props) => {
   }
 
   return (
-    <Container maxWidth="sm" className="App">
-      <TableContainer component={Paper} sx={{ maxHeight: 880 }}>
+    <Container maxWidth="md" className="App">
+      <TableContainer className="Table" component={Paper} sx={{ maxHeight: 880 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
@@ -124,7 +125,7 @@ const List = (props: Props) => {
               <TableCell>To</TableCell>
               <TableCell>Message</TableCell>
               <TableCell>Points</TableCell>
-              <TableCell></TableCell>
+              <TableCell>EDIT or DELETE</TableCell>
             </TableRow>
           </TableHead>
 
@@ -147,8 +148,12 @@ const List = (props: Props) => {
                   {row.point}
                 </TableCell>
                 <TableCell component="th" scope="row">
-                  {" "}
-                  <IconButton
+                  {" "} 
+
+                  {(() => {
+                    if (row.fromwhom ==props.userId) {
+                      return <div>
+                        <IconButton
                     aria-label="edit"
                     onClick={() => {
                       openEditModal(
@@ -170,6 +175,11 @@ const List = (props: Props) => {
                   >
                     <AiFillDelete />
                   </IconButton>
+                      </div>
+                    }
+                  })()}
+
+                  
                 </TableCell>
               </TableRow>
             ))}
@@ -204,6 +214,7 @@ const List = (props: Props) => {
             onChange={(e) => setSelectedPoint(Number(e.target.value))}
           ></input>
         </div>
+        
         <Box mb={2}>
           <FormControl sx={{ mr: 2, mt: 2 }}>
             <button

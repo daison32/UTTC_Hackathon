@@ -3,12 +3,14 @@ import Newmessage from "./Newmessage";
 import { FC } from "react";
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import CssBaseline from "@mui/material/CssBaseline";
 
 const App: FC = () => {
   return (
-    <Router>
+    <>
+      <CssBaseline />
+      <Router>
         <Switch>
-
           <Route path="/new">
             <Newmessage />
           </Route>
@@ -16,11 +18,9 @@ const App: FC = () => {
           <Route path="/">
             <Home />
           </Route>
-
-          
         </Switch>
-      
-    </Router>
+      </Router>
+    </>
   );
 };
 

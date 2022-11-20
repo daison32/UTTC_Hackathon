@@ -1,4 +1,6 @@
 import { useState } from "react";
+import "./Form.css";
+
 import { useEffect } from "react";
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 import React from "react";
@@ -75,7 +77,7 @@ const Form = (props: Props) => {
         ></input>
       </div>
       <div className="row">
-        <label className="label">Point: </label>
+        <label className="label">Point(~100): </label>
         <input
           className="inputBox"
           type={"number"}

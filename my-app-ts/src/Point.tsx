@@ -1,8 +1,8 @@
+import { Container } from "@mui/system";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import "./Point.css";
-
 
 type Score = {
   name: string;
@@ -10,22 +10,23 @@ type Score = {
 };
 
 type Props = {
-  points: Score[]
+  points: Score[];
 };
 
 const Point = (props: Props) => {
-
   return (
-    <div className="Point">
-      <h3>Points</h3>
-      <ul>
-        {props.points.map((point, i) => (
-          <li className="list" key={i}>
-            {point.name} : {point.point}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Container maxWidth="md">
+      <div className="Point">
+        <h3>Points</h3>
+        <ul>
+          {props.points.map((point, i) => (
+            <li className="list" key={i}>
+              {point.name} : {point.point}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Container>
   );
 };
 

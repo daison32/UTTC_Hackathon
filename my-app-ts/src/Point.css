@@ -4,13 +4,13 @@ ul {
     left:50%;
  }
  
- li {
+.Point li {
    position:relative;
    left:-50%;
    list-style-type: none;
-   border: #999 solid 1px;
+    background-color: #313742;
    margin: 0 0 10px 0;
-   padding: 10px 30px;
+   padding: 10px 80px;
  }
 .Point {
     text-align: center;

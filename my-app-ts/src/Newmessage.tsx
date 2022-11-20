@@ -59,6 +59,9 @@ const Newmessage: FC = () => {
     if (towhom == userId) {
       return window.alert("自分に貢献は送れません！");
     }
+    if (point > 100) {
+      return window.alert("100点までしか送れません！")
+    }
     await axios.post(url + "/transactions", {
       fromwhom: userId,
       towhom: towhom,
@@ -69,7 +72,11 @@ const Newmessage: FC = () => {
   };
 
   // 編集（UPDATE）
-  const onUpdate = async (selectedId: string, message: string, point: number) => {
+  const onUpdate = async (
+    selectedId: string,
+    message: string,
+    point: number
+  ) => {
     await axios.put(url + "/transactions", {
       id: selectedId,
       message: message,
@@ -84,7 +91,7 @@ const Newmessage: FC = () => {
       data: { id: id },
     });
     reRendering();
-  }
+  };
 
   // userId を 名前(string)に
   const userIdToName = (userId: string) => {
@@ -105,10 +112,12 @@ const Newmessage: FC = () => {
   };
 
   return (
-    <Container maxWidth="sm" className="App">
+    <div className="Wrapper">
       <nav className="HeaderLink">
-        <Link to="/">Home</Link>
+        <Link className="UserPick" to="/">ユーザー選択</Link>
       </nav>
+      <Container maxWidth="md" className="App">
+      
 
       <header className="App-header">
         <div className="User-Name">Hello {userIdToName(userId)}</div>
@@ -125,6 +134,8 @@ const Newmessage: FC = () => {
         />
       </header>
     </Container>
+    </div>
+    
   );
 };
 

@@ -1,5 +1,17 @@
+.Wrapper {
+  background-color: #282c34;
+}
+
 .App {
   text-align: center;
+  
+}
+.HeaderLink {
+  background-color: aliceblue;
+}
+.UserPick {
+  font-size: medium;
+
 }
 
 .App-logo {
@@ -39,10 +51,17 @@
 
 .HeaderLink {
   text-align: left;
+  background-color: #191f28;
+  padding: 10px;
+  color: aliceblue;
 }
 
 .User-Name {
   position: relative;
   right: 10px;
   top: 10px;
+}
+
+.UserPick {
+  color: aliceblue;
 }
